@@ -2,7 +2,7 @@
   <img src="icon/logo.svg" height="150">
   <h3 align="center">tampax</h3>
   <p align="center">YAML, extended to support inline variables.<p>
-  <p align="center"><a href="https://npmjs.org/package/tampax"><img src="https://img.shields.io/npm/v/tampax.svg" alt="NPM Version"> <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="XO code style"></a> <a href="https://travis-ci.org/arthurlacoste/tampax"><img src="https://secure.travis-ci.org/arthurlacoste/tampax.svg" alt="build status"></a>
+  <p align="center"><a href="https://npmjs.org/package/tampax"><img src="https://img.shields.io/npm/v/tampax.svg" alt="NPM Version"></a> <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="XO code style"></a> <a href="https://travis-ci.org/arthurlacoste/tampax"><img src="https://secure.travis-ci.org/arthurlacoste/tampax.svg" alt="build status"></a>
   </p>
 </p>
  
