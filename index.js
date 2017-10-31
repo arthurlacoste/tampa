@@ -39,7 +39,6 @@ function yamlParseString(ymlString, args) {
 	args = args || {};
 	const oString = yaml.load(ymlString);
 	const flattenString = flatten(oString);
-  // Console.log(flattenString);
 	Object.assign(args, flattenString);
 	const firstFormat = tampax(ymlString, args);
 	return (yaml.load(firstFormat));

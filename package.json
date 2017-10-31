@@ -1,7 +1,7 @@
 {
   "name": "tampax",
-  "version": "0.1.0",
-  "description": "Template string, files, and even YAML.",
+  "version": "1.0.0",
+  "description": "YAML, extended to support inline variables.",
   "main": "index",
   "keywords": [
     "template",

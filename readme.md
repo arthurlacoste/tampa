@@ -6,7 +6,7 @@
   </p>
 </p>
  
-Now, replacing strings is now as simple as fill a hole.
+Replacing strings is now as simple as fill a hole.
 
 Template string, files, and even YAML. 
   
