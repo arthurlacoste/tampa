@@ -1,6 +1,6 @@
 {
   "name": "tampax",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YAML, extended to support inline variables.",
   "main": "index",
   "keywords": [

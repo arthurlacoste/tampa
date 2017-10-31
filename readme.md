@@ -36,7 +36,13 @@ console.log(r.sentence);
 
 // output : "Arthur use Excalibur. The goal is to kill Mordred."
 ```
-	
+
+### Templating string without YAML
+
+There is 2 ways to do this.
+
+First, by passing an object with equivalent name :
+
 ```js
 let tampax = require("tampax")
 let result
@@ -50,13 +56,39 @@ result = tampax("Hello {{name}}, you have {{count}} unread messages", {
 console.log(result);
 // result -> "Hello Robert, you have 12 unread messages"
 
+```
+<a name="array-using"></a>
+Or by using an old-fashion-way to do, by passing an array, and using numbers.
 
+```js
 // Format using a number indexed array
 
 result = tampax("Hello {{0}}, you have {{1}} unread messages", ["Robert", 12])
 console.log(result);
 // result -> "Hello Robert, you have 12 unread messages"
 ```
+
+
+## Doc
+
+### tampax(string, args) 
+
+find all occurences of {{mystring}} in the string, and replace it.
+
+- **string** `required` {YAML string} A YAML string to parse.
+- **args** `required ` {Object|Array} Variables to find. If an array is given, you [need to use numbers instead of words](#array-using).
+- **return** {string} Return a string with everything replaced.
+
+### tampax.yamlParseString(string[, args]) 
+
+find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optionnal `args` parameter.
+
+- **string** `required` {YAML string} A YAML string to parse.
+- **args** `optionnal` {Object} Variables to find. If a previous value is given in the YAML file, this object replace it.
+- **return** {object} Return an object with everything replaced.
+
+
+### Escaping
 
 Escape {{}} pairs by using triple {{}}}
 
@@ -65,15 +97,6 @@ var text = tampax("{{{0}}}")
 // text -> "{{0}}"
 
 ```
-## Doc
-
-### yamlParseString(string[, args]) 
-
-find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optionnal `args` parameter.
-
-- **string** `required` {YAML string} A YAML string to parse.
-- **args** `optionnal` {object} Object to find. If a previous value is given in the YAML file, this object replace it.
-- **return** {object} Return an object with everything replaced.
 
 ## Related projects
 
