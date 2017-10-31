@@ -3,5 +3,5 @@ node_js:
   - 'node'
 before_script:
  - npm install
- - npm install ava
+ - npm install ava flat
 script: npm run test

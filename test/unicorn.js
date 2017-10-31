@@ -200,3 +200,57 @@ test('Template string with underscores', t => {
 	});
 	t.is(result, 'Hello James Bond, how are you?');
 });
+
+test('Template string with dot, flattened.', t => {
+	const flatten = require('flat');
+	const result = format('Hello {{FULL.NAME}}, how are you?', flatten({
+		FULL: {NAME: 'James Bond'}
+	}));
+	t.is(result, 'Hello James Bond, how are you?');
+});
+test('Template string with underscores and dot.', t => {
+	const result = format('Hello {{FULL_.NAME}}, how are you?', {
+		'FULL_.NAME': 'James Bond'
+	});
+	t.is(result, 'Hello James Bond, how are you?');
+});
+
+test('Parse variable inside of YAML string.', t => {
+	const result = format.yamlParseString(`
+dude: Arthur
+weapon: Excalibur
+sentence: "{{dude}} use {{weapon}}. The goal is {{goal}}."
+`, {
+	goal: 'to kill Mordred'
+});
+
+	t.is(result.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
+});
+
+test('YAML string, flattened required.', t => {
+	const yamlString = `
+dude:
+  name: Arthur
+weapon:
+  favorite: Excalibur
+  useless: knife
+sentence: "{{dude.name}} use {{weapon.favorite}}. The goal is {{goal}}."`;
+
+	const result = format.yamlParseString(yamlString, {goal: 'to kill Mordred'});
+
+	t.is(result.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
+});
+
+test('YAML string, args is optionnal, flattened required.', t => {
+	const yamlString = `
+dude:
+  name: Arthur
+weapon:
+  favorite: Excalibur
+  useless: knife
+sentence: "{{dude.name}} use {{weapon.favorite}}."`;
+
+	const result = format.yamlParseString(yamlString);
+
+	t.is(result.sentence, 'Arthur use Excalibur.');
+});

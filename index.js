@@ -1,5 +1,9 @@
-const nargs = /\{\{([0-9a-zA-Z_.]+)\}\}/g;
+/* eslint no-prototype-builtins: 0 */
 
+const yaml = require('js-yaml');
+const flatten = require('flat');
+
+const nargs = /\{\{([0-9a-zA-Z_.]+)\}\}/g;
 
 function tampax(string) {
 	let args;
@@ -18,14 +22,12 @@ function tampax(string) {
 	}
 
 	return string.replace(nargs, (match, i, index) => {
-		let result;
-
     // Test for triple curly bracket to escape it
 		if (string[index - 1] === '{' &&
             string[index + match.length] === '}') {
-			return '{'+i+'}';
+			return '{' + i + '}';
 		}
-		result = args.hasOwnProperty(i) ? args[i] : null;
+		const result = args.hasOwnProperty(i) ? args[i] : null;
 		if (result === null || result === undefined) {
 			return '';
 		}
@@ -33,4 +35,17 @@ function tampax(string) {
 	});
 }
 
+function yamlParseString(ymlString, args) {
+	args = args || {};
+	const oString = yaml.load(ymlString);
+	const flattenString = flatten(oString);
+  // Console.log(flattenString);
+	Object.assign(args, flattenString);
+	const firstFormat = tampax(ymlString, args);
+	return (yaml.load(firstFormat));
+}
+
+// Function yamlParseFile()
+
 module.exports = tampax;
+module.exports.yamlParseString = yamlParseString;

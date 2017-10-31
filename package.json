@@ -2,7 +2,7 @@
   "name": "tampax",
   "version": "0.1.0",
   "description": "Template string, files, and even YAML.",
-  "main": "index.js",
+  "main": "index",
   "keywords": [
     "template",
     "string",
@@ -14,7 +14,6 @@
   ],
   "author": "Arthur Lacoste <arthak@gmail.com>",
   "repository": "git://github.com/arthurlacoste/tampax.git",
-  "main": "index",
   "homepage": "https://github.com/arthurlacoste/tampax",
   "bugs": {
     "url": "https://github.com/arthurlacoste/tampax/issues",
@@ -30,5 +29,9 @@
   },
   "testling": {
     "files": "test/index.js"
+  },
+  "dependencies": {
+    "js-yaml": "^3.10.0",
+    "flat": "^4.0.0"
   }
 }
