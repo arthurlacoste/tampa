@@ -8,7 +8,11 @@
  
 Replacing strings is now as simple as fill a hole.
 
-Template string, files, and even YAML. 
+Template string, files, and even YAML.
+
+## Introduction
+
+I love YAML. In many ways. But sometimes, we need "just a little bit more". Tampax is the more, by providing a way to parse recursively the internal structure of YAML to use variables inside of it. 
   
 ## Installation
 
