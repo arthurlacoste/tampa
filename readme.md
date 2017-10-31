@@ -18,7 +18,7 @@ Template string, files, and even YAML.
 
 ### Using YAML variables
 
-This example show how you can use both object-related variables included in your YAML structure and give an object to feed your object. This is optionnal to give an object to this function.
+This example show how you can use both object-related variables included in your YAML structure and give an object to feed your object. This is optional to give an object to this function.
 
 ```js
 const tampax = require('tampax');
@@ -37,11 +37,12 @@ console.log(r.sentence);
 // output : "Arthur use Excalibur. The goal is to kill Mordred."
 ```
 
+
 ### Templating string without YAML
 
 There is 2 ways to do this.
 
-First, by passing an object with equivalent name :
+First, by passing an object with the equivalent name :
 
 ```js
 let tampax = require("tampax")
@@ -81,11 +82,11 @@ find all occurences of {{mystring}} in the string, and replace it.
 
 ### tampax.yamlParseString(string[, args]) 
 
-find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optionnal `args` parameter.
+find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optional `args` parameter.
 
 - **string** `required` {YAML string} A YAML string to parse.
-- **args** `optionnal` {Object} Variables to find. If a previous value is given in the YAML file, this object replace it.
-- **return** {object} Return an object with everything replaced.
+- **args** `optional` {Object} Variables to find. If a previous value is given in the YAML file, this object replace it.
+- **return** {Object} Return an object with everything replaced.
 
 
 ### Escaping
