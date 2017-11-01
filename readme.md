@@ -13,6 +13,8 @@ Template string, files, and even YAML.
 ## Introduction
 
 I love YAML. In many ways. But sometimes, we need "just a little bit more". Tampax is the more, by providing a way to parse recursively the internal structure of YAML to use variables inside of it. 
+
+If you don't know how YAML works, you can read this [introduction to YAML](https://github.com/arthurlacoste/Introduction-To-YAML/blob/master/Introduction-to-YAML.md).
   
 ## Installation
 
