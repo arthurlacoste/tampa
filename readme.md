@@ -39,10 +39,10 @@ const r = tampax.yamlParseString(yamlString, { goal: 'to kill Mordred' });
 console.log(r.sentence);
 
 // output : "Arthur use Excalibur. The goal is to kill Mordred."
+
 ```
 
-
-### Templating string without YAML
+### Templating string without YAML
 
 There is 2 ways to do this.
 
@@ -71,6 +71,7 @@ Or by using an old-fashion-way to do, by passing an array, and using numbers.
 result = tampax("Hello {{0}}, you have {{1}} unread messages", ["Robert", 12])
 console.log(result);
 // result -> "Hello Robert, you have 12 unread messages"
+
 ```
 
 
