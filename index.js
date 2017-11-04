@@ -44,7 +44,13 @@ function yamlParseString(ymlString, args) {
 	return (yaml.load(firstFormat));
 }
 
+function objectParseString(objectString, args) {
+	const dump = yaml.safeDump(objectString)
+	return(yamlParseString(dump, args))
+}
+
 // Function yamlParseFile()
 
 module.exports = tampax;
 module.exports.yamlParseString = yamlParseString;
+module.exports.objectParseString = objectParseString;
