@@ -29,7 +29,8 @@ function tampax(string) {
 		}
 		const result = args.hasOwnProperty(i) ? args[i] : null;
 		if (result === null || result === undefined) {
-			return '';
+			// Keep tag if no var found
+			return '{{' + i + '}}';
 		}
 		return result;
 	});
@@ -45,8 +46,8 @@ function yamlParseString(ymlString, args) {
 }
 
 function objectParseString(objectString, args) {
-	const dump = yaml.safeDump(objectString)
-	return(yamlParseString(dump, args))
+	const dump = yaml.safeDump(objectString);
+	return (yamlParseString(dump, args));
 }
 
 // Function yamlParseFile()

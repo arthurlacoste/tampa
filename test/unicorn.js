@@ -36,9 +36,9 @@ test('Multiple named arguments are replaced', t => {
 	t.is(result, 'Hello Anna, you have 5 new messages');
 });
 
-test('Missing named arguments become 0 characters', t => {
+test('Missing named arguments works', t => {
 	const result = format('Hello{{name}}, how are you?', {});
-	t.is(result, 'Hello, how are you?');
+	t.is(result, 'Hello{{name}}, how are you?');
 });
 
 test('Named arguments can be escaped', t => {
@@ -74,9 +74,9 @@ test('Multiple array arguments are replaced', t => {
 	t.is(result, 'Hello Anna, you have 5 new messages');
 });
 
-test('Missing array arguments become 0 characters', t => {
+test('Missing array arguments become works', t => {
 	const result = format('Hello{{0}}, how are you?', []);
-	t.is(result, 'Hello, how are you?');
+	t.is(result, 'Hello{{0}}, how are you?');
 });
 
 test('Array arguments can be escaped', t => {
@@ -86,7 +86,7 @@ test('Array arguments can be escaped', t => {
 
 test('Array keys are not accessible', t => {
 	const result = format('Function{{splice}}', []);
-	t.is(result, 'Function');
+	t.is(result, 'Function{{splice}}');
 });
 
 test('Listed arguments are replaced', t => {
@@ -116,9 +116,9 @@ test('Multiple listed arguments are replaced', t => {
 	t.is(result, 'Hello Anna, you have 5 new messages');
 });
 
-test('Missing listed arguments become 0 characters', t => {
+test('Missing listed arguments works.', t => {
 	const result = format('Hello{{1}}, how are you?', 'no');
-	t.is(result, 'Hello, how are you?');
+	t.is(result, 'Hello{{1}}, how are you?');
 });
 
 test('Listed arguments can be escaped', t => {
@@ -128,32 +128,32 @@ test('Listed arguments can be escaped', t => {
 
 test('Allow null data', t => {
 	const result = format('Hello{{0}}', null);
-	t.is(result, 'Hello');
+	t.is(result, 'Hello{{0}}');
 });
 
 test('Allow undefined data', t => {
 	const result1 = format('Hello{{0}}');
 	const result2 = format('Hello{{0}}', undefined);
-	t.is(result1, 'Hello');
-	t.is(result2, 'Hello');
+	t.is(result1, 'Hello{{0}}');
+	t.is(result2, 'Hello{{0}}');
 });
 
 test('Null keys become 0 characters', t => {
 	const result1 = format('Hello{{name}}', {name: null});
 	const result2 = format('Hello{{0}}', [null]);
 	const result3 = format('Hello{{0}}{{1}}{{2}}', null, null, null);
-	t.is(result1, 'Hello');
-	t.is(result2, 'Hello');
-	t.is(result3, 'Hello');
+	t.is(result1, 'Hello{{name}}');
+	t.is(result2, 'Hello{{0}}');
+	t.is(result3, 'Hello{{0}}{{1}}{{2}}');
 });
 
 test('Undefined keys become 0 characters', t => {
 	const result1 = format('Hello{{firstName}}{{lastName}}', {name: undefined});
 	const result2 = format('Hello{{0}}{{1}}', [undefined]);
 	const result3 = format('Hello{{0}}{{1}}{{2}}', undefined, undefined);
-	t.is(result1, 'Hello');
-	t.is(result2, 'Hello');
-	t.is(result3, 'Hello');
+	t.is(result1, 'Hello{{firstName}}{{lastName}}');
+	t.is(result2, 'Hello{{0}}{{1}}');
+	t.is(result3, 'Hello{{0}}{{1}}{{2}}');
 });
 
 test('Works across multline strings', t => {
