@@ -5,17 +5,17 @@
   <p align="center"><a href="https://npmjs.org/package/tampax"><img src="https://img.shields.io/npm/v/tampax.svg" alt="NPM Version"></a> <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="XO code style"></a> <a href="https://travis-ci.org/arthurlacoste/tampax"><img src="https://secure.travis-ci.org/arthurlacoste/tampax.svg" alt="build status"></a>
   </p>
 </p>
- 
+
 Replacing strings is now as simple as fill a hole.
 
 Template string, files, and even YAML.
 
 ## Introduction
 
-I love YAML. In many ways. But sometimes, we need "just a little bit more". Tampax is the more, by providing a way to parse recursively the internal structure of YAML to use variables inside of it. 
+I love YAML. In many ways. But sometimes, we need "just a little bit more". Tampax is the more, by providing a way to parse recursively the internal structure of YAML to use variables inside of it.
 
 If you don't know how YAML works, you can read this [introduction to YAML](https://github.com/arthurlacoste/Introduction-To-YAML/blob/master/Introduction-to-YAML.md).
-  
+
 ## Installation
 
 `npm install tampax --save`
@@ -27,7 +27,7 @@ If you don't know how YAML works, you can read this [introduction to YAML](https
 This example show how you can use both object-related variables included in your YAML structure and give an object to feed your object. This is optional to give an object to this function.
 
 ```js
-const tampax = require('tampax');
+const tampax = require('../index.js');
 
 const yamlString = `
 dude:
@@ -37,10 +37,18 @@ weapon:
   useless: knife
 sentence: "{{dude.name}} use {{weapon.favorite}}. The goal is {{goal}}."`;
 
-const r = tampax.yamlParseString(yamlString, { goal: 'to kill Mordred' });
-console.log(r.sentence);
+tampax.yamlParseString(yamlString, {goal: 'to kill Mordred'}, (err, data) => {
+  if (err) {
+     throw err;
+  }
 
-// output : "Arthur use Excalibur. The goal is to kill Mordred."
+  console.log(data);
+  /* => { dude: { name: 'Arthur' },
+  weapon: { favorite: 'Excalibur', useless: 'knife' },
+  sentence: 'Arthur use Excalibur. The goal is to kill Mordred.' }
+  */
+});
+
 
 ```
 
@@ -79,7 +87,7 @@ console.log(result);
 
 ## Doc
 
-### tampax(string, args) 
+### tampax(string, args)
 
 find all occurences of {{mystring}} in the string, and replace it.
 
@@ -87,7 +95,7 @@ find all occurences of {{mystring}} in the string, and replace it.
 - **args** `required ` {Object|Array} Variables to find. If an array is given, you [need to use numbers instead of words](#array-using).
 - **return** {string} Return a string with everything replaced.
 
-### tampax.yamlParseString(string[, args]) 
+### tampax.yamlParseString(string[, args])
 
 find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optional `args` parameter.
 
@@ -113,6 +121,6 @@ var text = tampax("{{{0}}}")
 * [flat](https://github.com/hughsk/flat)
 
 ## Licence
-[CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) 
+[CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 Arthur Lacoste

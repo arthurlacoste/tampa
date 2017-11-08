@@ -1,6 +1,6 @@
 {
   "name": "tampax",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "YAML, extended to support inline variables.",
   "main": "index",
   "keywords": [
@@ -20,15 +20,12 @@
     "email": "arthak@gmail.com"
   },
   "devDependencies": {
-    "ava": "^0.23.0"
+    "ava": "*"
   },
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "test": "ava test/unicorn.js --verbose",
     "nyc": "nyc npm test"
-  },
-  "testling": {
-    "files": "test/index.js"
   },
   "dependencies": {
     "js-yaml": "^3.10.0",

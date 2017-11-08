@@ -1,3 +1,4 @@
+
 const test = require('ava');
 const format = require('../index.js');
 
@@ -215,19 +216,24 @@ test('Template string with underscores and dot.', t => {
 	t.is(result, 'Hello James Bond, how are you?');
 });
 
-test('Parse variable inside of YAML string.', t => {
-	const result = format.yamlParseString(`
+test.cb('Parse variable inside of YAML string.', t => {
+	format.yamlParseString(`
 dude: Arthur
 weapon: Excalibur
 sentence: "{{dude}} use {{weapon}}. The goal is {{goal}}."
 `, {
 	goal: 'to kill Mordred'
+}, (err, data) => {
+	if (err) {
+		t.fail();
+		return t.end();
+	}
+	t.is(data.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
+	t.end();
+});
 });
 
-	t.is(result.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
-});
-
-test('YAML string, flattened required.', t => {
+test.cb('YAML string, flattened required.', t => {
 	const yamlString = `
 dude:
   name: Arthur
@@ -236,12 +242,17 @@ weapon:
   useless: knife
 sentence: "{{dude.name}} use {{weapon.favorite}}. The goal is {{goal}}."`;
 
-	const result = format.yamlParseString(yamlString, {goal: 'to kill Mordred'});
-
-	t.is(result.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
+	format.yamlParseString(yamlString, {goal: 'to kill Mordred'}, (err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.sentence, 'Arthur use Excalibur. The goal is to kill Mordred.');
+		t.end();
+	});
 });
 
-test('YAML string, args is optionnal, flattened required.', t => {
+test.cb('YAML string, args is optionnal, flattened required.', t => {
 	const yamlString = `
 dude:
   name: Arthur
@@ -250,7 +261,49 @@ weapon:
   useless: knife
 sentence: "{{dude.name}} use {{weapon.favorite}}."`;
 
-	const result = format.yamlParseString(yamlString);
+	format.yamlParseString(yamlString, (err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.sentence, 'Arthur use Excalibur.');
+		t.end();
+	});
+});
 
-	t.is(result.sentence, 'Arthur use Excalibur.');
+function dude(ev){
+  console.log('dude!')
+  console.log(ev)
+}
+test.cb('YAML string, args is optionnal, flattened required. Option arg', t => {
+	const yamlString = `
+dude:
+  name: Arthur
+weapon:
+  favorite: Excalibur
+  useless: knife
+sentence: "{{dude.name}} use {{weapon.favorite}}."`;
+
+	format.yamlParseString(yamlString,{'arg':'test'},{'onWarning': dude}, (err, data) => {
+		if (err) {
+
+			return t.end();
+		}
+		t.is(data.sentence, 'Arthur use Excalibur.');
+		t.end();
+	});
+});
+
+test.cb('We wait an error. Option arg', t => {
+	const yamlString = `
+dudcv'''regess: knife
+sentenceg:fg  "{{dude.name}} use {vorite}}."`;
+console.log('Last!')
+	format.yamlParseString(yamlString,{'arg':'test'},{'onWarning': dude}, (err, data) => {
+		if (err) {
+      t.pass();
+			return t.end();
+		}
+		t.end();
+	});
 });

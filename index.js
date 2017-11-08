@@ -1,5 +1,5 @@
 /* eslint no-prototype-builtins: 0 */
-
+const fs = require('fs');
 const yaml = require('js-yaml');
 const flatten = require('flat');
 
@@ -29,20 +29,61 @@ function tampax(string) {
 		}
 		const result = args.hasOwnProperty(i) ? args[i] : null;
 		if (result === null || result === undefined) {
-			// Keep tag if no var found
+      // Keep tag if no var found
 			return '{{' + i + '}}';
 		}
 		return result;
 	});
 }
 
-function yamlParseString(ymlString, args) {
-	args = args || {};
-	const oString = yaml.load(ymlString);
-	const flattenString = flatten(oString);
-	Object.assign(args, flattenString);
-	const firstFormat = tampax(ymlString, args);
-	return (yaml.load(firstFormat));
+function readYamlString(string, options, cb) {
+	if (typeof options === 'function') {
+		cb = options;
+		options = {};
+	}
+
+	try {
+		const data = yaml.safeLoad(string, options);
+		cb(null, data);
+	} catch (err) {
+		return cb(err.stack || String(err));
+	}
+}
+
+function yamlParseString(ymlString, args, opts, cb) {
+	if (typeof args === 'function') {
+		cb = args;
+		args = {};
+		opts = {};
+	} else if (typeof opts === 'function') {
+		cb = opts;
+		opts = {};
+	}
+
+	readYamlString(ymlString, (err, data) => {
+		if (err) {
+			return cb(err);
+		}
+		const flattenString = flatten(data);
+		Object.assign(args, flattenString);
+		const firstFormat = tampax(ymlString, args);
+
+		readYamlString(firstFormat, (err, data) => {
+			if (err) {
+				return cb(err);
+			}
+			return cb(null, data);
+		});
+	});
+}
+
+function yamlParseFile(ymlFile, args, opts, cb) {
+	fs.readFile(ymlFile, 'utf8', (err, data) => {
+		if (err) {
+			return cb(err);
+		}
+		readYamlString(data, args, opts, cb);
+	});
 }
 
 function objectParseString(objectString, args) {
@@ -50,8 +91,8 @@ function objectParseString(objectString, args) {
 	return (yamlParseString(dump, args));
 }
 
-// Function yamlParseFile()
-
 module.exports = tampax;
 module.exports.yamlParseString = yamlParseString;
+module.exports.yamlParseFile = yamlParseFile;
 module.exports.objectParseString = objectParseString;
+module.exports.readYamlString = readYamlString
