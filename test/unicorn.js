@@ -1,4 +1,3 @@
-
 const test = require('ava');
 const format = require('../index.js');
 
@@ -271,9 +270,9 @@ sentence: "{{dude.name}} use {{weapon.favorite}}."`;
 	});
 });
 
-function dude(ev){
-  console.log('dude!')
-  console.log(ev)
+function dude(ev) {
+	console.log('dude!');
+	console.log(ev);
 }
 test.cb('YAML string, args is optionnal, flattened required. Option arg', t => {
 	const yamlString = `
@@ -284,9 +283,9 @@ weapon:
   useless: knife
 sentence: "{{dude.name}} use {{weapon.favorite}}."`;
 
-	format.yamlParseString(yamlString,{'arg':'test'},{'onWarning': dude}, (err, data) => {
+	format.yamlParseString(yamlString, {arg: 'test'}, {onWarning: dude}, (err, data) => {
 		if (err) {
-
+			t.fail();
 			return t.end();
 		}
 		t.is(data.sentence, 'Arthur use Excalibur.');
@@ -298,12 +297,24 @@ test.cb('We wait an error. Option arg', t => {
 	const yamlString = `
 dudcv'''regess: knife
 sentenceg:fg  "{{dude.name}} use {vorite}}."`;
-console.log('Last!')
-	format.yamlParseString(yamlString,{'arg':'test'},{'onWarning': dude}, (err, data) => {
+
+	format.yamlParseString(yamlString, {arg: 'test'}, {onWarning: dude}, err => {
 		if (err) {
-      t.pass();
+			t.pass();
 			return t.end();
 		}
+		t.end();
+	});
+});
+
+test.cb('YAML File', t => {
+	format.yamlParseFile('test/target.yml', {arg: 'test'}, {onWarning: dude}, err => {
+		if (err) {
+			console.log(err);
+			t.fail();
+			return t.end();
+		}
+		t.pass();
 		t.end();
 	});
 });

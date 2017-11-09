@@ -82,7 +82,7 @@ function yamlParseFile(ymlFile, args, opts, cb) {
 		if (err) {
 			return cb(err);
 		}
-		readYamlString(data, args, opts, cb);
+		yamlParseString(data, args, opts, cb);
 	});
 }
 
@@ -95,4 +95,4 @@ module.exports = tampax;
 module.exports.yamlParseString = yamlParseString;
 module.exports.yamlParseFile = yamlParseFile;
 module.exports.objectParseString = objectParseString;
-module.exports.readYamlString = readYamlString
+module.exports.readYamlString = readYamlString;

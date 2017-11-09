@@ -95,13 +95,27 @@ find all occurences of {{mystring}} in the string, and replace it.
 - **args** `required ` {Object|Array} Variables to find. If an array is given, you [need to use numbers instead of words](#array-using).
 - **return** {string} Return a string with everything replaced.
 
-### tampax.yamlParseString(string[, args])
+### tampax.yamlParseString(string[, args, opts], callback)
 
-find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optional `args` parameter.
+Find all occurences of {{mystring}}, and a correspondance in the YAML file itself, and the optional `args` parameter.
 
 - **string** `required` {YAML string} A YAML string to parse.
-- **args** `optional` {Object} Variables to find. If a previous value is given in the YAML file, this object replace it.
-- **return** {Object} Return an object with everything replaced.
+- **args** `optional ` {Object|Array} Variables to find. If an array is given, you [need to use numbers instead of words](#array-using).
+- **opts** `optional ` {Object} Options to call to [yaml.safeLoad()](https://github.com/nodeca/js-yaml#safeload-string---options-).
+- **callback** {function}
+  - **err** {string} Error and why.
+  - **data** {string} Return a string with everything replaced.
+
+### tampax.yamlParseFile(string[, args, opts], callback)
+
+Same as `tampax.yamlParseString()`, but take a file instead of a string.
+
+  - **string** `required` {string} A File to parse.
+  - **args** `optional ` {Object|Array} Variables to find. If an array is given, you [need to use numbers instead of words](#array-using).
+  - **opts** `optional ` {Object} Options to call to [yaml.safeLoad()](https://github.com/nodeca/js-yaml#safeload-string---options-).
+  - **callback** {function}
+    - **err** {string} Error and why.
+    - **data** {string} Return a string with everything replaced.
 
 
 ### Escaping

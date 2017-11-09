@@ -1,6 +1,6 @@
 {
   "name": "tampax",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "YAML, extended to support inline variables.",
   "main": "index",
   "keywords": [
@@ -28,7 +28,7 @@
     "nyc": "nyc npm test"
   },
   "dependencies": {
-    "js-yaml": "^3.10.0",
-    "flat": "^4.0.0"
+    "flat": "^4.0.0",
+    "js-yaml": "^3.10.0"
   }
 }
