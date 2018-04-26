@@ -104,7 +104,7 @@ Find all occurences of {{mystring}}, and a correspondance in the YAML file itsel
 - **opts** `optional ` {Object} Options to call to [yaml.safeLoad()](https://github.com/nodeca/js-yaml#safeload-string---options-).
 - **callback** {function}
   - **err** {string} Error and why.
-  - **data** {string} Return a string with everything replaced.
+  - **data** {Object} Return a string with everything replaced.
 
 ### tampax.yamlParseFile(string[, args, opts], callback)
 
@@ -115,7 +115,7 @@ Same as `tampax.yamlParseString()`, but take a file instead of a string.
   - **opts** `optional ` {Object} Options to call to [yaml.safeLoad()](https://github.com/nodeca/js-yaml#safeload-string---options-).
   - **callback** {function}
     - **err** {string} Error and why.
-    - **data** {string} Return a string with everything replaced.
+    - **data** {Object} Return a string with everything replaced.
 
 
 ### Escaping
