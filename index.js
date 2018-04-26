@@ -21,6 +21,8 @@ function tampax(string) {
 		args = {};
 	}
 
+	args = flatten(args);
+
 	return string.replace(nargs, (match, i, index) => {
     // Test for triple curly bracket to escape it
 		if (string[index - 1] === '{' &&
