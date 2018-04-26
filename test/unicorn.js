@@ -318,3 +318,25 @@ test.cb('YAML File', t => {
 		t.end();
 	});
 });
+
+test.cb('Test deeper object parsing', t => {
+	const yamlString = `b: This is {{c.x}} and {{c.y}}`;
+
+	format.yamlParseString(
+		yamlString,
+		{
+		  c: {
+		    x: 'some value',
+		    y: 'another value'
+		  }
+		},
+		{onWarning: dude},
+		(err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.b, 'This is some value and another value');
+		t.end();
+	});
+});
