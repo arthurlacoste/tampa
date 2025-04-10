@@ -1,5 +1,5 @@
 {
-  "name": "tampax",
+  "name": "tampa",
   "version": "1.2.1",
   "description": "YAML, extended to support inline variables.",
   "main": "index",
@@ -13,10 +13,10 @@
     "tampon"
   ],
   "author": "Arthur Lacoste <arthak@gmail.com>",
-  "repository": "git://github.com/arthurlacoste/tampax.git",
-  "homepage": "https://github.com/arthurlacoste/tampax",
+  "repository": "git://github.com/arthurlacoste/tampa.git",
+  "homepage": "https://github.com/arthurlacoste/tampa",
   "bugs": {
-    "url": "https://github.com/arthurlacoste/tampax/issues",
+    "url": "https://github.com/arthurlacoste/tampa/issues",
     "email": "arthak@gmail.com"
   },
   "devDependencies": {
