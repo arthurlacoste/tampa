@@ -38,6 +38,39 @@ function tampax(string) {
 	});
 }
 
+function resolveArgs(args) {
+	const resolved = {};
+	const resolving = {};
+
+	function resolve(key) {
+		if (resolved.hasOwnProperty(key)) return resolved[key];
+		if (!args.hasOwnProperty(key) || resolving[key]) return undefined;
+
+		const value = args[key];
+		if (typeof value !== 'string') {
+			resolved[key] = value;
+			return value;
+		}
+
+		resolving[key] = true;
+		const dependencies = {};
+		value.replace(nargs, (match, dependency) => {
+			const dependencyValue = resolve(dependency);
+			if (dependencyValue !== undefined && dependencyValue !== null) {
+				dependencies[dependency] = dependencyValue;
+			}
+			return match;
+		});
+		delete resolving[key];
+
+		resolved[key] = tampax(value, dependencies);
+		return resolved[key];
+	}
+
+	Object.keys(args).forEach(resolve);
+	return Object.assign({}, args, resolved);
+}
+
 function readYamlString(string, options, cb) {
 	if (typeof options === 'function') {
 		cb = options;
@@ -69,9 +102,10 @@ function yamlParseString(ymlString, args, opts, cb) {
 		}
 		const flattenString = flatten(data);
 		args = Object.assign(flatten(args), flattenString);
-		const firstFormat = tampax(ymlString, args);
+		const resolvedArgs = resolveArgs(args);
+		const formatted = tampax(ymlString, resolvedArgs);
 
-		readYamlString(firstFormat, (err, data) => {
+		readYamlString(formatted, (err, data) => {
 			if (err) {
 				return cb(err);
 			}

@@ -251,6 +251,57 @@ sentence: "{{dude.name}} use {{weapon.favorite}}. The goal is {{goal}}."`;
 	});
 });
 
+test.cb('YAML same-object references are resolved.', t => {
+	const yamlString = `
+global:
+  proj: utils
+  which: test
+  file: test {{global.proj}}`;
+
+	format.yamlParseString(yamlString, (err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.global.file, 'test utils');
+		t.end();
+	});
+});
+
+test.cb('YAML chained references are resolved transitively.', t => {
+	const yamlString = `
+global:
+  proj: utils
+  file: hello {{global.proj}}
+foo:
+  - echo {{global.file}}`;
+
+	format.yamlParseString(yamlString, (err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.global.file, 'hello utils');
+		t.is(data.foo[0], 'echo hello utils');
+		t.end();
+	});
+});
+
+test.cb('YAML escaped references stay escaped.', t => {
+	const yamlString = `
+name: Arthur
+literal: "{{{name}}}"`;
+
+	format.yamlParseString(yamlString, (err, data) => {
+		if (err) {
+			t.fail();
+			return t.end();
+		}
+		t.is(data.literal, '{{name}}');
+		t.end();
+	});
+});
+
 test.cb('YAML string, args is optionnal, flattened required.', t => {
 	const yamlString = `
 dude:
