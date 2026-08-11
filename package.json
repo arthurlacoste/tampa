@@ -3,6 +3,9 @@
   "version": "1.3.0",
   "description": "YAML, extended to support inline variables.",
   "main": "index",
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "template",
     "string",
@@ -13,7 +16,10 @@
     "tampon"
   ],
   "author": "Arthur Lacoste <arthak@gmail.com>",
-  "repository": "https://github.com/arthurlacoste/tampa.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurlacoste/tampa.git"
+  },
   "homepage": "https://github.com/arthurlacoste/tampa",
   "bugs": {
     "url": "https://github.com/arthurlacoste/tampa/issues",
