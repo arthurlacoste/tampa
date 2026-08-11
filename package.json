@@ -20,11 +20,11 @@
     "email": "arthak@gmail.com"
   },
   "devDependencies": {
-    "ava": "*"
+    "ava": "0.25.0"
   },
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {
-    "test": "ava test/unicorn.js --verbose",
+    "test": "ava test/unicorn.js test/yaml-sync.js --verbose",
     "nyc": "nyc npm test"
   },
   "dependencies": {
