@@ -85,6 +85,19 @@ function readYamlString(string, options, cb) {
 	}
 }
 
+function yamlParseStringSync(ymlString, args, opts) {
+	if (args == null) args = {};
+	if (opts == null) opts = {};
+
+	const data = yaml.safeLoad(ymlString, opts);
+	const flattenString = flatten(data);
+	args = Object.assign(flatten(args), flattenString);
+	const resolvedArgs = resolveArgs(args);
+	const formatted = tampax(ymlString, resolvedArgs);
+
+	return yaml.safeLoad(formatted, opts);
+}
+
 function yamlParseString(ymlString, args, opts, cb) {
 	if (typeof args === 'function') {
 		cb = args;
@@ -130,6 +143,7 @@ function objectParseString(objectString, args) {
 
 module.exports = tampax;
 module.exports.yamlParseString = yamlParseString;
+module.exports.yamlParseStringSync = yamlParseStringSync;
 module.exports.yamlParseFile = yamlParseFile;
 module.exports.objectParseString = objectParseString;
 module.exports.readYamlString = readYamlString;

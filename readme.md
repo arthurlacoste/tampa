@@ -51,6 +51,17 @@ tampax.yamlParseString(yamlString, {goal: 'to kill Mordred'}, (err, data) => {
 
 ```
 
+The same YAML can be parsed synchronously when a callback is unnecessary:
+
+```js
+const data = tampax.yamlParseStringSync(yamlString, {
+  goal: 'to kill Mordred'
+});
+
+console.log(data.sentence);
+// Arthur use Excalibur. The goal is to kill Mordred.
+```
+
 ### Templating string without YAML
 
 There is 2 ways to do this.
@@ -104,6 +115,16 @@ Find all occurences of {{mystring}}, and a correspondance in the YAML file itsel
 - **callback** {function}
   - **err** {string} Error and why.
   - **data** {Object} Return an object with everything replaced.
+
+### tampax.yamlParseStringSync(string[, args, opts])
+
+Synchronous equivalent of `tampax.yamlParseString()`.
+
+- **string** `required` {YAML string} A YAML string to parse.
+- **args** `optional ` {Object|Array} Variables to find.
+- **opts** `optional ` {Object} Options passed to `yaml.safeLoad()`.
+- **return** {Object} Parsed YAML with variables replaced.
+- Throws a YAML parsing error synchronously when the input is invalid.
 
 ### tampax.yamlParseFile(string[, args, opts], callback)
 
