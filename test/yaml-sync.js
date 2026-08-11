@@ -32,5 +32,5 @@ foo:
 });
 
 test('yamlParseStringSync throws YAML parsing errors synchronously', t => {
-	t.throws(() => format.yamlParseStringSync('items:\n\t- invalid indentation'));
+	t.throws(() => format.yamlParseStringSync('items: [one, two'));
 });
