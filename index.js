@@ -61,13 +61,14 @@ function yamlParseString(ymlString, args, opts, cb) {
 		cb = opts;
 		opts = {};
 	}
+	if (args == null) args = {};
 
 	readYamlString(ymlString, (err, data) => {
 		if (err) {
 			return cb(err);
 		}
 		const flattenString = flatten(data);
-		Object.assign(args, flattenString);
+		args = Object.assign(flatten(args), flattenString);
 		const firstFormat = tampax(ymlString, args);
 
 		readYamlString(firstFormat, (err, data) => {
